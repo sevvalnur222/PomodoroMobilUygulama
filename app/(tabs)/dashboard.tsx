@@ -88,6 +88,11 @@ const colors = [
   "#14b8a6",
 ];
 
+const totalMinutes = Object.values(categoryMap).reduce(
+  (sum, val) => sum + val,
+  0
+);
+
 
 const pieData = Object.keys(categoryMap).map((key, index) => ({
   name: key,
@@ -103,13 +108,13 @@ const pieData = Object.keys(categoryMap).map((key, index) => ({
 
       <Text
         style={{
-          fontSize: 22,
+          fontSize: 25,
           fontWeight: "bold",
           color: "#0A1A4F",
           marginBottom: 20,
         }}
       >
-        Raporlar
+        Raporlarım
       </Text>
 
       {/* Genel İstatistikler */}
@@ -148,21 +153,23 @@ const pieData = Object.keys(categoryMap).map((key, index) => ({
 
 <Text
   style={{
-    color: "white",
+    color: "#0A1A4F",
     fontSize: 22,
     fontWeight: "bold",
-    marginBottom: 10,
+    marginBottom: -12,
+    textAlign: "center",
   }}
 >
-  Kategori Dağılımı
+  Kategorilere Göre Odaklanma Dağılımı
 </Text>
 
 {pieData.length > 0 && (
   <PieChart
     data={pieData}
-    width={screenWidth - 40}
+    width={600}
     height={220}
     accessor="population"
+    hasLegend={false}
     chartConfig={{
       color: () => "#fff",
     }}
@@ -191,9 +198,11 @@ const pieData = Object.keys(categoryMap).map((key, index) => ({
             }}
           />
 
-          <Text style={{ color: "#0A1A4F", fontSize: 14 }}>
-            {item.name} — {item.population.toFixed(1)} dk
+          <Text style={{ fontWeight: "600" }}>
+              {item.name} — {item.population.toFixed(1)} dk 
+             ({((item.population * 60) / totalMinutes * 100).toFixed(1)}%)
           </Text>
+
         </View>
       ))}
     </View>
