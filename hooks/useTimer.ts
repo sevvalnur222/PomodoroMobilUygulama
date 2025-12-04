@@ -6,7 +6,6 @@ export function useTimer(initialSeconds: number) {
   const [running, setRunning] = useState(false);
   const [distractions, setDistractions] = useState(0); // kaç kez dikkatin dağıldı
 
-
   useEffect(() => {
     setSeconds(initialSeconds);
   }, [initialSeconds]);
