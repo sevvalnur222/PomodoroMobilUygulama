@@ -34,7 +34,6 @@ export default function DashboardScreen() {
     );
   }
 
-
   // --- Son 7 Günlük Veriler ---
 const last7Days = [];
 
