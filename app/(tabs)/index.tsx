@@ -37,8 +37,6 @@ useEffect(() => {
 }, [running]);
 
 
-
-
   return (
     <View
       style={{
