@@ -5,7 +5,6 @@ import CategoryPicker from "../../components/CategoryPicker";
 import { useTimer } from "../../hooks/useTimer";
 import { saveSession } from "../../src/storage/sessionStorage";
 
-
 export default function HomeScreen() {
   const [minutes, setMinutes] = useState(1); // Varsayılan 1 dakika
   const { seconds, running, start, pause, reset, distractions } = useTimer(minutes * 60);
