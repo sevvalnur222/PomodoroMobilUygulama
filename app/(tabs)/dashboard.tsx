@@ -92,7 +92,6 @@ const totalMinutes = Object.values(categoryMap).reduce(
   0
 );
 
-
 const pieData = Object.keys(categoryMap).map((key, index) => ({
   name: key,
   population: categoryMap[key] / 60,
