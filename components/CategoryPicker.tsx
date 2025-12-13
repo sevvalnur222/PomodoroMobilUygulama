@@ -5,9 +5,10 @@ import { Button, Modal, Text, TextInput, View } from "react-native";
 type Props = {
   selected: string | null;
   onChange: (value: string) => void;
+  disabled?: boolean;
 };
 
-export default function CategoryPicker({ selected, onChange }: Props) {
+export default function CategoryPicker({ selected, onChange, disabled }: Props) {
   const [categories, setCategories] = useState([
     { label: "Ders Çalışma", value: "ders" },
     { label: "Kodlama", value: "kodlama" },
@@ -55,16 +56,20 @@ export default function CategoryPicker({ selected, onChange }: Props) {
           borderColor: "#0a163cff", // Lacivert çerçeve
           borderRadius: 8,
           backgroundColor: "white",
+          opacity: disabled ? 0.5 : 1,
         }}
       >
-        <Picker
-          selectedValue={selected ?? ""}
-          onValueChange={(val) => {
-            if (val === "add_new") setModalVisible(true);
-            else onChange(val);
-          }}
-          style={{ width: "100%" }}
-        >
+       <Picker
+  enabled={!disabled}
+  selectedValue={selected ?? ""}
+  onValueChange={(val) => {
+    if (disabled) return; // ekstra güvenlik
+    if (val === "add_new") setModalVisible(true);
+    else onChange(val);
+  }}
+  style={{ width: "100%" }}
+>
+
           <Picker.Item label="Kategori Seçin" value="" />
           {categories.map((cat) => (
             <Picker.Item key={cat.value} label={cat.label} value={cat.value} />
