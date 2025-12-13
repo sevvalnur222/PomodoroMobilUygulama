@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useFocusEffect } from "expo-router";
+import { useCallback, useState } from "react";
 import { Dimensions, FlatList, ScrollView, Text, View } from "react-native";
 import { BarChart, PieChart } from "react-native-chart-kit";
 import { FocusSession, getSessions } from "../../src/storage/sessionStorage";
@@ -16,15 +17,19 @@ export default function DashboardScreen() {
   const [sessions, setSessions] = useState<FocusSession[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const load = async () => {
-      const data = await getSessions();
-      setSessions(data);
-      setLoading(false);
-    };
+ const load = async () => {
+  setLoading(true);
+  const data = await getSessions();
+  setSessions(data);
+  setLoading(false);
+};
 
+useFocusEffect(
+  useCallback(() => {
     load();
-  }, []);
+  }, [])
+);
+
 
   if (loading) {
     return (
@@ -33,6 +38,7 @@ export default function DashboardScreen() {
       </View>
     );
   }
+
 
   // --- Son 7 Günlük Veriler ---
 const last7Days = [];
@@ -91,6 +97,7 @@ const totalMinutes = Object.values(categoryMap).reduce(
   (sum, val) => sum + val,
   0
 );
+
 
 const pieData = Object.keys(categoryMap).map((key, index) => ({
   name: key,
