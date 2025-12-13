@@ -5,6 +5,7 @@ import CategoryPicker from "../../components/CategoryPicker";
 import { useTimer } from "../../hooks/useTimer";
 import { saveSession } from "../../src/storage/sessionStorage";
 
+
 export default function HomeScreen() {
   const [minutes, setMinutes] = useState(1); // Varsayılan 1 dakika
   const { seconds, running, start, pause, reset, distractions } = useTimer(minutes * 60);
@@ -36,6 +37,8 @@ useEffect(() => {
 }, [running]);
 
 
+
+
   return (
     <View
       style={{
@@ -47,7 +50,11 @@ useEffect(() => {
       }}
     >
       
-      <CategoryPicker selected={category} onChange={setCategory} />
+      <CategoryPicker
+  selected={category}
+  onChange={setCategory}
+  disabled={running}
+/>
 
 <Text style={{ fontSize: 18, fontWeight: "600", marginTop: 20 }}>
   Süre Seç (Dakika)
